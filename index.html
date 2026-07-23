@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JITI INSTITUTE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+        body { font-family: 'Roboto', sans-serif; }
+        .header-bg { background: linear-gradient(to right, #1e40af, #3b82f6); }
+        .sidebar { transform: translateX(100%); transition: transform 0.3s ease; }
+        .sidebar.open { transform: translateX(0); }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+    
+    <!-- Main Header -->
+    <header class="bg-white shadow">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center gap-4">
+            <img src="https://i.ibb.co/7x4tFrpG/jiti-logo.png" alt="JITI Logo" class="w-20 h-20 object-contain">
+            <div class="flex-1">
+                <h1 class="text-3xl font-bold text-blue-900 tracking-tight">JITI INSTITUTE</h1>
+                <p class="text-blue-700 text-sm">JITI INSTITUTE OF TECHNICAL (OPC) PRIVATE LIMITED</p>
+                <p class="text-[10px] text-gray-500">झारखंड सरकार द्वारा मान्यता प्राप्त, An ISO 9001:2015 Certified Institute</p>
+            </div>
+            <button onclick="toggleMenu()" class="text-4xl text-gray-700">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <div id="sidebar" class="sidebar fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-50 overflow-y-auto">
+        <div class="p-6">
+            <button onclick="toggleMenu()" class="float-right text-3xl text-gray-500">✕</button>
+            <div class="mt-10 space-y-6 text-lg">
+                <a href="#" onclick="showMessage('Home'); return false;" class="block font-medium hover:text-blue-600">Home</a>
+                <a href="#" onclick="showMessage('Profile'); return false;" class="block font-medium hover:text-blue-600">Profile</a>
+                <a href="#" onclick="showMessage('Courses'); return false;" class="block font-medium hover:text-blue-600">Courses</a>
+                <a href="#" onclick="showMessage('Services'); return false;" class="block font-medium hover:text-blue-600">Services</a>
+                <a href="#" onclick="showMessage('FAQ'); return false;" class="block font-medium hover:text-blue-600">Faq</a>
+                <a href="#" onclick="showMessage('Contact'); return false;" class="block font-medium hover:text-blue-600">Contact</a>
+                
+                <button onclick="toggleMenu(); searchCertificate()" 
+                        class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-xl text-lg font-medium mt-6">
+                    Certificate Verification
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certificate Section -->
+    <main class="flex-1 max-w-4xl mx-auto w-full px-4 py-6">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="header-bg text-white py-7 px-6">
+                <h2 class="text-3xl font-semibold">Certificate Verification</h2>
+            </div>
+            
+            <div class="p-8">
+                <label class="text-sm font-medium text-gray-700 block mb-2">Regd No.</label>
+                <input id="slInput" type="text" placeholder="Enter Regd No." 
+                       class="w-full px-5 py-4 text-lg border border-gray-300 rounded-xl focus:outline-none focus:border-blue-600">
+                
+                <button onclick="searchCertificate()" 
+                        class="w-full mt-8 bg-blue-700 hover:bg-blue-800 py-4 rounded-2xl text-white font-semibold text-xl shadow-md transition">
+                    Search Now
+                </button>
+            </div>
+        </div>
+
+        <div id="result" class="mt-6 hidden"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1c1c1c] text-white mt-auto">
+        <div class="max-w-4xl mx-auto px-4 py-8 space-y-6">
+            <div class="flex gap-3">
+                <i class="fas fa-map-marker-alt text-orange-400 text-xl mt-1"></i>
+                <div class="text-sm leading-relaxed">Ajwa Trade Center 3rd Floor Shop<br>No 309 Road No 16 Jawaharnagar<br>Mango Jsr 831012 Jharkhand</div>
+            </div>
+            <div class="flex gap-3"><i class="fas fa-phone-alt text-orange-400 text-xl"></i><a href="tel:9334789032" class="text-sm hover:text-orange-400">Call Us: 9334789032</a></div>
+            <div class="flex gap-3"><i class="fas fa-envelope text-orange-400 text-xl"></i><a href="mailto:institute_jiti@yahoo.com" class="text-sm hover:text-orange-400">institute_jiti@yahoo.com</a></div>
+
+            <div class="flex gap-4 pt-2">
+                <a href="https://www.facebook.com" target="_blank" class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-xl"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com" target="_blank" class="w-10 h-10 bg-gradient-to-br from-pink-500 via-purple-500 to-red-500 rounded-full flex items-center justify-center text-xl"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com" target="_blank" class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-xl"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <button onclick="adminLogin()" class="w-full bg-orange-500 hover:bg-orange-600 py-4 rounded-2xl text-lg font-medium flex items-center justify-center gap-2">Admin Login →</button>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function showMessage(page) {
+            alert(page + " Page is currently under maintenance.\n\nServer is down. Please try again later.");
+            toggleMenu();
+        }
+
+        const certificates = {
+            "JITI/20230/01": {name:"MD ARMAN", course:"Diploma in AIR CONDITIONING & REFRIGERATION", duration:"2 YEARS", issueDate:"15 Jan 2023", grade:"A+", status:"Verified"},
+            "JITI2023005": {name:"Priya Singh", course:"Web Development", duration:"3 Months", issueDate:"20 Mar 2024", grade:"A", status:"Verified"},
+            "JITI2023012": {name:"Amit Sharma", course:"Digital Marketing", duration:"4 Months", issueDate:"10 May 2024", grade:"B+", status:"Verified"}
+        };
+
+        function searchCertificate() {
+            const input = document.getElementById('slInput').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('result');
+
+            if (!input) return alert("कृपया Regd No. दर्ज करें!");
+
+            if (certificates[input]) {
+                const c = certificates[input];
+                resultDiv.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-green-500">
+                        <div class="flex items-start gap-4">
+                            <i class="fas fa-check-circle text-5xl text-green-500"></i>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-bold text-green-700">Certificate Verified Successfully</h3>
+                                <p class="text-gray-600 mt-1">Regds No: <b>${input}</b></p>
+                            </div>
+                        </div>
+                        <div class="mt-6 grid grid-cols-2 gap-y-4 text-sm">
+                            <div><strong>Name</strong><br>${c.name}</div>
+                            <div><strong>Course</strong><br>${c.course}</div>
+                            <div><strong>Duration</strong><br>${c.duration}</div>
+                            <div><strong>Issue Date</strong><br>${c.issueDate}</div>
+                            <div><strong>Grade</strong><br><span class="font-bold">${c.grade}</span></div>
+                            <div><strong>Status</strong><br><span class="text-green-600 font-bold">${c.status}</span></div>
+                        </div>
+                    </div>`;
+            } else {
+                resultDiv.innerHTML = `
+                    <div class="bg-white rounded-2xl shadow-xl p-8 text-center">
+                        <i class="fas fa-times-circle text-6xl text-red-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-red-600">Certificate Not Found</h3>
+                        <p class="text-gray-600 mt-2">Please check your SL Number</p>
+                    </div>`;
+            }
+            resultDiv.classList.remove('hidden');
+        }
+
+        function adminLogin() {
+            alert("🔐 Admin Login \n\n(only for Authorised Person)");
+        }
+
+        document.getElementById('slInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchCertificate();
+        });
+    </script>
+</body>
+</html>
